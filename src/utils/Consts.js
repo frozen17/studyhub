@@ -1,0 +1,6 @@
+export const ADMIN_DASHBOARD = '/admin-dashboard'
+export const USER_DASHBOARD = '/user-dashboard'
+export const HOME_ROUTE = '/'
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/signup'
+export const NEWS_ROUTE = '/news'
