@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
@@ -22,28 +22,44 @@ export const db = getFirestore(app);
 
 export const storage = getStorage(app);
 
-export const createNews = async (title, content, imageFile) => {
+export const createEvent = async (title, date, location, capacity, image) => {
   try {
     let imageUrl = "";
 
-    if (imageFile) {
-      const storageRef = ref(storage, `news_images/${Date.now()}_${imageFile.name}`);
-      const snapshot = await uploadBytes(storageRef, imageFile);
+    if (image instanceof File) {
+      const storageRef = ref(storage, `event_images/${Date.now()}_${image.name}`);
+      const snapshot = await uploadBytes(storageRef, image);
       imageUrl = await getDownloadURL(snapshot.ref);
+    } else {
+      imageUrl = image; 
     }
 
-    const newsRef = collection(db, "news");
-    await addDoc(newsRef, {
+    const eventRef = collection(db, "events");
+    await addDoc(eventRef, {
       title,
-      content,
+      date,
+      location,
+      capacity: parseInt(capacity, 10),
       imageUrl,
       createdAt: new Date(),
     });
   } catch (error) {
-    console.error("Ошибка при создании новости:", error);
+    console.error("Ошибка при создании события:", error);
     throw error;
   }
 };
+
+export const getEvents = async () => {
+  const eventsCollection = collection(db, "events");
+  const eventSnapshot = await getDocs(eventsCollection);
+  const eventList = eventSnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return eventList;
+};
+
+
 
 
 
