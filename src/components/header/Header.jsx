@@ -6,7 +6,8 @@ import { useAuth } from "../../Context/AuthContext/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/Firebase.config";
 import { getAuth, signOut } from "firebase/auth";
-
+import { ADD_ROUTE, ADDEVENT_ROUTE, ADDSCHEDULE_ROUTE, EVENT_ROUTE } from "../../utils/Consts";
+import logo from '../../images/logo.png'
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [role, setRole] = useState(null);
@@ -15,16 +16,15 @@ const Header = () => {
   const auth = getAuth();
 
   const userNavigation = [
-    { name: "Новости", href: "/news" },
+    { name: "Event", href: EVENT_ROUTE },
     { name: "Расписание", href: "/schedule" },
     { name: "Чат", href: "/chat" },
     { name: "Контакты", href: "/contacts" },
   ];
 
   const adminNavigation = [
-    { name: "Добавить новость", href: "/admin/add-news" },
-    { name: "Изменить расписание", href: "/admin/edit-schedule" },
-    { name: "Управление пользователями", href: "/admin/manage-users" },
+    { name: "Добавить расписание", href: ADDSCHEDULE_ROUTE },
+    { name: "Добавить Событие", href: ADDEVENT_ROUTE },
     { name: "Настройки", href: "/admin/settings" },
   ];
 
@@ -85,7 +85,7 @@ const Header = () => {
 
   if (isRoleLoading) {
     return (
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className=" inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <p className="text-sm text-gray-500">Загрузка...</p>
         </nav>
@@ -101,7 +101,7 @@ const Header = () => {
             <span className="sr-only">Your Company</span>
             <img
               alt=""
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+              src={logo}
               className="h-8 w-auto"
             />
           </a>
@@ -146,7 +146,7 @@ const Header = () => {
               <span className="sr-only">Your Company</span>
               <img
                 alt=""
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                src={logo}
                 className="h-8 w-auto"
               />
             </a>

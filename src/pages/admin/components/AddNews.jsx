@@ -1,6 +1,6 @@
 // AddNews.jsx
 import React, { useState } from "react";
-import { createNews } from "../../firebase/Firebase.config";
+import { createNews } from "../../../firebase/Firebase.config";
 
 const AddNews = () => {
   const [title, setTitle] = useState("");

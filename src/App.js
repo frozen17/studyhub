@@ -4,13 +4,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import Preloader from "./Preloader.jsx";
 import Header from "./components/header/Header.jsx";
-import Footer from './components/footer/Footer.jsx'
 import app from "./firebase/Firebase.config.js";
 import { authRoutes, publicRoutes, adminRoutes } from "./utils/Routes.js";
 import { HOME_ROUTE } from "./utils/Consts.js";
+import StudentPortal from "./components/StudentPortal.jsx";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  // initial value
   const [user, setUser] = useState(null);
   const [role, setRole] = useState("guest");
 
@@ -53,46 +54,51 @@ const App = () => {
 
   return (
     <div>
-      <Header user={user} role={role} />
-
+      
       <div className="AppRouter">
-        <AppRouter role={role} />
+        <AppRouter role={role} user={user}/>
       </div>
-      <Footer/>
     </div>
   );
 };
 
-const AppRouter = ({ role }) => {
+const AppRouter = ({ role, user }) => {
   if (role === "admin") {
     return (
+      <div>
+        <StudentPortal user={user} role={role}/>
       <Routes>
+        
         {adminRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} exact />
         ))}
         <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
-      </Routes>
+      </Routes></div>
     );
   }
 
   if (role === "user") {
     return (
+      <div>
+        <StudentPortal user={user} role={role}/>
       <Routes>
         {authRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} exact />
         ))}
         <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
-      </Routes>
+      </Routes></div>
     );
   }
 
   return (
+    <div>
+      <Header user={user} role={role} />
     <Routes>
       {publicRoutes.map(({ path, element }) => (
         <Route key={path} path={path} element={element} exact />
       ))}
       <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
-    </Routes>
+    </Routes></div>
   );
 };
 
