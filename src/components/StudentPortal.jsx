@@ -26,6 +26,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext/AuthProvider";
+import UserEvent from "../pages/auth/components/UserEvent";
 
 // const NAVIGATION = [
 //   { id: "add-schedule", title: "Добавить расписание", icon: <DashboardIcon /> },
@@ -45,7 +46,7 @@ const StudentPortal = () => {
   const auth = getAuth();
 
   const userNavigation = [
-    { title: "Мероприятия", id: "event", icon: <DashboardIcon /> },
+    { title: "Мероприятия", id: "eventlist", icon: <DashboardIcon /> },
     { title: "Расписание", id: "schedule" , icon: <ShoppingCartIcon />},
     { title: "Чат", id: "chat" ,  icon: <BarChartIcon />},
     { title: "Контакты", id: "contacts" },
@@ -133,6 +134,8 @@ const StudentPortal = () => {
         return <AdminScheduleForm />;
       case "add-event":
         return <AdminAddEvent />;
+        case "eventlist":
+            return <UserEvent />;
       case "write-chat":
         return <Typography>Форма для написания сообщений в чате.</Typography>;
       case "read-chat":
@@ -232,7 +235,14 @@ const StudentPortal = () => {
             <IconButton onClick={() => setDarkMode((prev) => !prev)}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0 }} className="flex items-center gap-4">
+
+            <span className="hidden text-right lg:block">
+          <span className="block text-sm font-medium">
+            Mirlan Zamirbekov
+          </span>
+          <span className="block text-xs">Developer</span>
+        </span>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

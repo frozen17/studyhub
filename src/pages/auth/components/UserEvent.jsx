@@ -39,13 +39,13 @@ const UserEvent = () => {
   }
 
   return (
-    <section id="events" className="py-16 bg-gray-50">
+    <section id="events" className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-extrabold  sm:text-4xl">
             Upcoming Events
           </h2>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          <p className="mt-4 max-w-2xl text-xl  lg:mx-auto">
             Stay updated with the latest campus events and activities
           </p>
         </div>
@@ -55,7 +55,7 @@ const UserEvent = () => {
             {events.map((event) => (
               <div
                 key={event.id}
-                className="bg-white overflow-hidden shadow-lg rounded-lg hover:shadow-xl transition-shadow"
+                className="overflow-hidden shadow-lg rounded-lg hover:shadow-xl transition-shadow"
               >
                 <div className="relative h-48">
                   <img
@@ -68,19 +68,19 @@ const UserEvent = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold">
                     {event.title}
                   </h3>
                   <div className="mt-4 space-y-2">
-                    <div className="flex items-center text-gray-500">
+                    <div className="flex items-center ">
                       <Calendar className="h-5 w-5 mr-2" />
                       <span>{event.date || "Дата не указана"}</span>
                     </div>
-                    <div className="flex items-center text-gray-500">
+                    <div className="flex items-center ">
                       <MapPin className="h-5 w-5 mr-2" />
                       <span>{event.location || "Местоположение не указано"}</span>
                     </div>
-                    <div className="flex items-center text-gray-500">
+                    <div className="flex items-center ">
                       <Users className="h-5 w-5 mr-2" />
                       <span>
                         Capacity: {event.capacity || "Не указано"}
